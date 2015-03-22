@@ -1,0 +1,1 @@
+{"name":"BOT5","manifest_version":2,"description":"simulador bot5 v2","version":"1.1","icons": {"128":"chrome-icon.png","16":"chrome-icon16.png"},"app": {"background": { "scripts": ["background.js"]}}}

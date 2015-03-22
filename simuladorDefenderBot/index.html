@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html><!--HTML5 doctype-->
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="Pragma" content="no-cache">
+<script type="text/javascript" charset="utf-8" src="intelxdk.js"></script>
+<script type="text/javascript" language="javascript">
+    // This event handler is fired once the intel libraries are ready
+    function onDeviceReady() {
+        //hide splash screen now that our app is ready to run
+        intel.xdk.device.hideSplashScreen();
+        setTimeout(function () {
+            $.ui.launch();
+        }, 50);
+    }
+    //initial event handler to detect when intel is ready to roll
+    document.addEventListener("intel.xdk.device.ready", onDeviceReady, false);
+</script>
+<script src="js/appframework.ui.min.js"></script>
+<script>
+    $.ui.autoLaunch = false;
+    $.ui.useOSThemes = true; //Change this to false to force a device theme
+    $.ui.blockPageScroll();
+    $(document).ready(function () {
+        if ($.ui.useOSThemes && !$.os.ios && $("#afui").get(0).className !== "ios")
+            $("#afui").removeClass("ios");
+    });
+</script>
+<script src="js/js.js"></script>
+<link href="css/icons.css" rel="stylesheet" type="text/css">
+<link href="css/af.ui.css" rel="stylesheet" type="text/css">
+</head>
+
+<div id="afui" class="ios">
+    <div id="header"></div>
+    <div id="content" style="">
+        <div class="panel" title="Novo Jogo" data-footer="none" data-nav="nav_0" id="novo-jogo"
+        selected="selected" style="">
+
+            <!--  <a class="button" href="#" style="" data-appbuilder-object="button" data-transition="slide"
+            id="random">Clicar aqui para preencher a tabela automaticamente com valores aleatórios</a> 
+            <div class="container" id="mostrador" style="width: 100%; height: 65%; position: relative; z-index: 0;">
+              <form>
+                <table>
+                        <tr>
+                            <td>Posição</td>
+                            <td>Tipo de atacante</td>
+                            <td>Turno inicial</td>
+                        </tr>
+                        <tr>
+                            <td>Slot 1</td>
+                            <td>
+                                <input id="inputTipo1" type="number" min="1" max="3">
+                            </td>
+                            <td>
+                                <input id="inputRonda1" type="number" min="1" max="6">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Slot 2</td>
+                            <td>
+                                <input id="inputTipo2" type="number" min="1" max="3">
+                            </td>
+                            <td>
+                                <input id="inputRonda2" type="number" min="1" max="6">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Slot 3</td>
+                            <td>
+                                <input id="inputTipo3" type="number" min="1" max="3">
+                            </td>
+                            <td>
+                                <input id="inputRonda3" type="number" min="1" max="6">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Slot 4</td>
+                            <td>
+                                <input id="inputTipo4" type="number" min="1" max="3">
+                            </td>
+                            <td>
+                                <input id="inputRonda4" type="number" min="1" max="6">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Slot 5</td>
+                           <td>
+                                <input id="inputTipo5" type="number" min="1" max="3">
+                            </td>
+                            <td>
+                                <input id="inputRonda5" type="number" min="1" max="6">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Slot 6</td>
+                           <td>
+                                <input id="inputTipo6" type="number" min="1" max="3">
+                            </td>
+                            <td>
+                                <input id="inputRonda6" type="number" min="1" max="6">
+                            </td>
+                        </tr>
+                </table>
+                  </form>
+            </div>
+ -->
+             <a class="button" style="width: 100%;" onclick="simular()">Start</a>
+            <table id="tabela-info">
+                    <tr>
+                        <td>%Vitórias</td>
+                        <td>Vitórias</td>
+                        <td>Jogos</td>
+                        <td>Vida Restante</td>
+                        <td>Energia Restante</td>
+                    </tr>
+                    <tr>
+                        <td id="percentagemVitorias"></td>
+                        <td id="vitorias"></td>
+                        <td id="jogos"></td>
+                        <td id="vidaMedia"></td>
+                        <td id="energiaMedia"></td>
+                        
+                    </tr>
+            </table>
+           
+        </div>
+        
+        <div class="panel" title="Jogo" data-footer="footer_1" data-nav="nav_0" id="jogo" style="">
+            
+             
+            <div class="container" id="inimigo" style="width: 100%; height: 65%; position: relative; z-index: 0;">
+            </div>
+            <a class="button" onclick="anteriorSlot()">anterior</a><a class="button" onclick="proximoSlot()">proximo</a>
+            <table class="" style="z-index: 0;">
+                    <tr>
+                        <td><a class="button" onclick="grua()">Grua</a>
+                        </td>
+                        <td><a class="button" onclick="toque()">Toque</a>
+                        </td>
+                        <td><a class="button" onclick="som()">Som</a>
+                        </td>
+                    </tr>
+            </table>
+            <table class="" style="z-index: 0;">
+                    <tr>
+                        <td><a class="button" onclick="cura1()">Cura1</a>
+                        </td>
+                        <td><a class="button" onclick="cura2()">Cura2</a>
+                        </td>
+                        <td><a class="button" onclick="cura3()">Cura3</a>
+                        </td>
+                    </tr>
+            </table>
+<a class="button" onclick="rondaInimigo()">Ronda do inimigo</a>
+                        
+
+        </div>
+    </div>
+    <div id="navbar">
+        <a href="#main" class="icon home">Home</a>
+    </div>
+    <header id="header_0">
+        <a id="backButton" href="#" class="button back" style="visibility: visible; ">Back</a>
+        <h1 id="pageTitle" class="">test</h1> 
+    </header>
+    <nav id="nav_0" data-appbuilder-object="nav">
+        <h1>Side Menu</h1>
+    </nav>
+    <footer id="footer_1" ><a href="#tabela" class="icon info">Tabela</a><a href="#jogo" class="icon bug">Jogo</a>
+    </footer>
+</div>
+
+
+
+
+
+</html>
